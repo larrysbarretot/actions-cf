@@ -28,3 +28,6 @@ jobs:
       
       - name: php version
         run: php --version
+      
+      - name: my action
+        uses: ./.github/actions/my-action
