@@ -1,6 +1,6 @@
 name: Hola Mundo
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   hola:
