@@ -1,0 +1,19 @@
+name: Ejemplo de servicio
+
+on: [push]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: example
+        ports:
+          - 3306:3306
+    
+    steps:
+      - name: Test
+        run: ls
