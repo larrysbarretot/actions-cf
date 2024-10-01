@@ -38,6 +38,10 @@ jobs:
         id: test
         run: vendor/bin/phpunit
 
-      - name: deploy
-        if: steps.test.outcome == 'success'
-        run: ls
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          name: artifacts
+          path: composer.json
+
+
