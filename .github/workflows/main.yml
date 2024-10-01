@@ -1,35 +1,35 @@
-name: Test
+# name: Test
 
-on: [push]
+# on: [push]
 
-jobs:
-  test-build:
-    runs-on: ubuntu-latest
+# jobs:
+#   test-build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.2.0
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4.2.0
       # - name: ls
       #   run: |
       #     chmod +x script.sh
       #     ./script.sh
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4.0.4
-        with:
-          node-version: latest
+      # - name: Setup Node.js environment
+      #   uses: actions/setup-node@v4.0.4
+      #   with:
+      #     node-version: latest
 
-      - name: node version
-        run: node --version
+      # - name: node version
+      #   run: node --version
 
-      - name: PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
+      # - name: PHP
+      #   uses: shivammathur/setup-php@v2
+      #   with:
+      #     php-version: '8.3'
       
-      - name: php version
-        run: php --version
+      # - name: php version
+      #   run: php --version
       
-      - name: my action
-        uses: ./.github/actions/my-action
-        with:
-          message: "Larry"
+      # - name: my action
+      #   uses: ./.github/actions/my-action
+      #   with:
+      #     message: "Larry"
