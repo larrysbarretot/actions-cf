@@ -11,5 +11,7 @@ jobs:
 
     steps:
       - name: Test
-        run: echo "Valor $MY_VAR"
+        env:
+          STEP_MY_VAR: Nivel step
+        run: echo "Valor $STEP_MY_VAR"
 
