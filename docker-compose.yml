@@ -1,0 +1,66 @@
+version: '3.7'
+services:
+  lara_docker_env_db:
+    image: mysql:8.0.39-debian
+    container_name: lara_docker_env_db
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=lara_docker_env
+      - MYSQL_USER=lara_docker_env
+      - MYSQL_PASSWORD=123456
+      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      laraDockerEnvNetwork:
+        ipv4_address: 172.72.0.2
+
+  lara_docker_env_app:
+    container_name: lara_docker_env_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /var/www
+    ports:
+      - "8081:80"
+    volumes:
+      - /var/www/storage
+      - ./:/var/www
+    env_file: .env
+    environment:
+      - "DB_HOST=lara_docker_env_db"
+      - "DB_PORT=3306"
+    links:
+      - lara_docker_env_db
+    depends_on:
+      - lara_docker_env_db
+    networks:
+      laraDockerEnvNetwork:
+        ipv4_address: 172.72.0.3
+  
+  lara_docker_env_nginx:
+    container_name: lara_docker_env_nginx
+    build:
+      context: ./
+      dockerfile: nginx.Dockerfile
+    ports:
+      - "8080:80"
+    links:
+      - lara_docker_env_app
+    volumes:
+      - ./:/var/www
+      - ./nginx/access.log:/var/log/nginx/access.log
+      - ./nginx/error.log:/var/log/nginx/error.log
+    networks:
+      laraDockerEnvNetwork:
+        ipv4_address: 172.72.0.4
+
+networks:
+  laraDockerEnvNetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.72.0.0/16
+
+volumes:
+  mysql:

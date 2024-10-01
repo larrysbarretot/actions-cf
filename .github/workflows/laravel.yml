@@ -1,0 +1,29 @@
+name: Laravel CI
+
+on: [push]
+
+jobs:
+  laravel-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3006:3006
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extentions: mbstring, bcmath, pdo, pdo_mysql
+
+      - name: Install packages
+        run: composer install --no-interaction
